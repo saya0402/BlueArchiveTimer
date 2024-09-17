@@ -4,7 +4,7 @@ from datetime import datetime, timedelta
 
 
 async def main(page: ft.Page):
-    page.title = "Timer App"
+    page.title = "ブーアブタイマー"
     page.window_width = 300
     page.window_height = 200
     page.window_resizable = False
@@ -14,8 +14,8 @@ async def main(page: ft.Page):
     timer_active = False
     flashing = False
 
-    # Set default background color to Alice Blue
-    page.bgcolor = "#f0f8ff"
+    # デフォルトの背景色をブルアカカラーに設定
+    page.bgcolor = "#00d7fb"
 
     def format_time(td: timedelta) -> str:
         hours, remainder = divmod(td.seconds, 3600)
@@ -31,13 +31,13 @@ async def main(page: ft.Page):
         if now.hour in [4, 16] and now.minute == 0 and now.second == 0:
             asyncio.create_task(flash_background())
         else:
-            page.bgcolor = "#f0f8ff"
+            page.bgcolor = "#00d7fb"
         page.update()
 
     async def flash_background():
         nonlocal flashing
         flashing = True
-        colors = ["#f0f8ff", "red"]
+        colors = ["#00d7fb", "#e4404b"]
         i = 0
         while flashing:
             page.bgcolor = colors[i % 2]
@@ -74,7 +74,7 @@ async def main(page: ft.Page):
         timer_active = False
         start_button.text = "Start"
         flashing = False
-        page.bgcolor = "#f0f8ff"
+        page.bgcolor = "#00d7fb"
 
         next_4_or_16 = datetime.now().replace(minute=0, second=0, microsecond=0)
         if next_4_or_16.hour < 4:
